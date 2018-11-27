@@ -1,6 +1,3 @@
-
-
-
 document.querySelector('#fach').addEventListener('click', select_doc);
  
 
