@@ -8,34 +8,39 @@
         <meta name="description" content="Ein interaktiver Wegweiser für die ersten Schritte mit Brackets.">
         <link rel="stylesheet" href="main.css">
     </head>
-    <body>
+<body>
         
 <div id= "main">
     <h1>DiaService</h1>
-    <h2>Multiple Choice</h2>
+    <h3>Multiple Choice</h3>
         
     <form action="">
-        Frage:
-        <input type="text" style="width:500px" name="neufach" value="">
+        <div class="left">
+            Frage:
+        </div>
+        <input type="text" style="width:495px" value="">
         <br><br>
-        Antwort 1: 
-        <input type="text" style="width:300px" name="neufach" value="">
-        <input class="form-check-input" type="radio" name="exampleRadios" value="" id="check1">
-        <br><br>
-        Antwort 2: 
-        <input type="text" style="width:300px" name="neufach" value="">
-        <input class="form-check-input" type="radio" name="exampleRadios" value="" id="check2">
-        <br><br>
-        Antwort 3: 
-        <input type="text" style="width:300px" name="neufach" value="">
-        <input class="form-check-input" type="radio" name="exampleRadios" value="" id="check3">
-        <br><br>
-        Antwort 4: 
-        <input type="text" style="width:300px" name="neufach" value="">
-        <input class="form-check-input" type="radio" name="exampleRadios" value="" id="check1">
-        <br><br>
-        <input type="button" name="btnSubmit" style="width:100px; height:30px" onclick="location.href='newQuestion.html'" value="Back" >
-        <input type="button" name="btnSubmit" style="width:100px; height:30px" value="Submit" >
+        <div class="thin-border">
+            Antwort 1: 
+            <input type="text" style="width:300px" value="">
+            <input class="form-check-input" type="radio" name="exampleRadios" value="" id="check1">
+            <br><br>
+            Antwort 2: 
+            <input type="text" style="width:300px" value="">
+            <input class="form-check-input" type="radio" name="exampleRadios" value="" id="check2">
+            <br><br>
+            Antwort 3:
+            <input type="text" style="width:300px" value="">
+            <input class="form-check-input" type="radio" name="exampleRadios" value="" id="check3">
+            <br><br>
+            Antwort 4:
+            <input type="text" style="width:300px" value="">
+            <input class="form-check-input" type="radio" name="exampleRadios" value="" id="check4">
+            <br>
+        </div>
+        <br>
+        <input type="button" name="btnSubmit" style="width:100px; height:30px" onclick="location.href='newQuestion.html'" value="Zurück" >
+        <input type="button" name="btnSubmit" style="width:100px; height:30px" value="Speichern" >
     </form>
     
 </div>
