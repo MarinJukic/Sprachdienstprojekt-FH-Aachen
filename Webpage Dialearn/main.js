@@ -16,7 +16,19 @@ function addFach()
     var x = document.getElementsByName("text_addFach")[0].value;
     var coll = firebase.firestore().collection('GAWH');
     
-    return coll.doc(x).set({}).then(function() {
-    alert("Document successfully written!");
+    coll.doc(x).set({});
+    
+    coll.doc(x).collection("Multiple Choice").doc('Anzahl').set({Anzahl: 0});
+    
+    coll.doc(x).collection("Freitext").doc('Anzahl').set({Anzahl: 0}).then(function() {
+        alert("Document successfully written!");
     });
 }
+
+
+
+
+
+/*
+    alert("Document successfully written!"); 
+*/
