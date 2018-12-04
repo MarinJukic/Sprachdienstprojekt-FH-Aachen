@@ -19,42 +19,33 @@
         <script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-firestore.js"></script>
         <script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-messaging.js"></script>
         <script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-functions.js"></script>
-
-<script>
-  // Initialize Firebase
-          var config = {
-            apiKey: "AIzaSyB-8gScjX7i5qYZYI_VTPOTOPQKW_peztE",
-            authDomain: "gawh-f81a5.firebaseapp.com",
-            databaseURL: "https://gawh-f81a5.firebaseio.com",
-            projectId: "gawh-f81a5",
-            storageBucket: "gawh-f81a5.appspot.com",
-            messagingSenderId: "251170516039"
-          };
-          firebase.initializeApp(config);
-</script>
         
         <div id= "main">
             <h1>DiaService</h1>
             <h3>Legen wir nun los</h3>
-            <form action="">
-                Neues Fach hinzufügen:
-                <br>
-                <input type="text" style="width:265px; height:20px; font-size-adjust: auto" name="text_addFach">
-                <button type="button" name="btn_addFach" style="width:26px; height:26px" value="Submit" onclick="addFach()">+</button>
-                <br><br>
-                
-                Vorhandenes Fach:<br>
-                <select style="width:300px; height:26px; font-size-adjust: auto" name="select_existing_fach" value="">
-                <option value="Datenbank">Datenbank</option>
-                </select>
-                <br><br>
-                
-                <button type="button" name="btn_index_weiter" style="width:100px; height:30px" value="Submit" onclick="location.href='options_page.html'">Weiter</button>
-            </form>   
+            Neues Fach hinzufügen:
+            <br>
+            <input type="text" style="width:265px; height:20px; font-size-adjust: auto" name="text_addFach">
+            <button type="button" name="btn_addFach" style="width:26px; height:26px" value="Submit" onclick="addFach()">+</button>
+            <br><br>
+            Vorhandenes Fach:<br>
+            <select style="width:300px; height:26px; font-size-adjust: auto" id="select_existing_fach">
+                <option disabled selected value="0">Bitte wählen Sie das Fach aus..</option>
+                <script>
+                   window.onload = function(){
+                        selectFach();  
+                   } 
+                </script>
+            </select>
+            <br><br>
+
+            <button type="button" name="btn_index_weiter" style="width:100px; height:30px" value="Submit" onclick="weiterFach()">Weiter</button>  
         </div>
         
         <script type="text/javascript" src="main.js"></script>
              
         <script src="https://www.gstatic.com/firebasejs/5.6.0/firebase.js"></script>
+        
+        
     </body>
 </html>
