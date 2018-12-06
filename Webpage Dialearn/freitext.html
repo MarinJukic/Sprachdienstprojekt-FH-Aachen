@@ -10,6 +10,16 @@
     </head>
     
     <body>       
+             <!-- Firebase App is always required and must be first -->
+        <script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-app.js"></script>
+
+        <!-- Add additional services that you want to use -->
+        <script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-database.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-firestore.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-messaging.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-functions.js"></script>
+        
         <div id= "main">
             <h1>DiaService</h1>
             <h3>Freitext</h3>
@@ -18,35 +28,35 @@
                 <div class="left">
                     Frage:
                 </div>       
-                <input type="question_freitext" style="width:495px" name="new_freitext_question" value="">
+                <input type="text" id ="f1" style="width:495px" name="freitext">
                 <br><br>
                 
                 <div class="thin-border">
                     Schlüssel 1: 
-                    <input type="Text" name="key1_freitext" style="width:100px; margin-right:30px" value="">
+                    <input type="text" id="k1 "name="freitext" style="width:100px; margin-right:30px">
                     
                     Schlüssel 2:
-                    <input type="Text" name="key2_freitext" style="width:100px" value="">
+                    <input type="text" id="k2" name="freitext" style="width:100px">
                     <br><br>
                     
                     Schlüssel 3: 
-                    <input type="Text" name="key3_freitext" style="width:100px; margin-right:30px" value="">
+                    <input type="text" id="k3"name="freitext" style="width:100px; margin-right:30px" >
                     
                     Schlüssel 4: 
-                    <input type="Text" name="key4_freitext" style="width:100px" value="">
+                    <input type="text" id="k4"name="freitext" style="width:100px">
                     <br><br>
                     
                     Schlüssel 5: 
-                    <input type="Text" name="key5_freitext" style="width:100px; margin-right:30px" value="">
+                    <input type="text" id="k5"name="freitext" style="width:100px; margin-right:30px">
                     
                     Schlüssel 6: 
-                    <input type="Text" name="key6_freitext" style="width:100px" value="">
+                    <input type="text"id="k6" name="freitext" style="width:100px" >
                     <br>
                 </div>
                 <br>
                 
-                <input type="button" name="btn_back_freitext" style="width:100px; height:30px" onclick="ref_newQ()" value="Zurück" >
-                <input type="button" name="btn_add_freitext" style="width:100px; height:30px" value="Speichern" onclick="ft_submit()">
+                <input type="button" name="btn_back_freitext" style="width:100px; height:30px"  value="Zurück" >
+               <input type="button" name="btn_add_freitext" style="width:100px; height:30px" value="Speichern" onclick="ft_submit()">
                 <br>
             </form>    
         </div> 
