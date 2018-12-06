@@ -4,7 +4,7 @@
 function addFach()
 {
     var x = document.getElementsByName("text_addFach")[0].value;
-    var coll = firebase.firestore().collection('Alpha');
+    var coll = firebase.firestore().collection('GAWH');
     
     //Erstelle Dokument vom neuen Fach
     coll.doc(x).set({});
@@ -18,30 +18,25 @@ function addFach()
     });
 }
 
-function selectFach(){
+function selectFach()
+{
     // Initialize Firebase
     var config = {
-    apiKey: "AIzaSyARl9jVIqTls5AH0dBzhSDtvlHVPAudLsg",
-    authDomain: "alpha-c1fa6.firebaseapp.com",
-    databaseURL: "https://alpha-c1fa6.firebaseio.com",
-    projectId: "alpha-c1fa6",
-    storageBucket: "alpha-c1fa6.appspot.com",
-    messagingSenderId: "658519541206"
-  };
- firebase.initializeApp(config);
-    
-    firebase.firestore().collection("Alpha").get().then(function(querySnapshot) {
+    apiKey: "AIzaSyB-8gScjX7i5qYZYI_VTPOTOPQKW_peztE",
+    authDomain: "gawh-f81a5.firebaseapp.com",
+    databaseURL: "https://gawh-f81a5.firebaseio.com",
+    projectId: "gawh-f81a5",
+    storageBucket: "gawh-f81a5.appspot.com",
+    messagingSenderId: "251170516039"
+    };
+    firebase.initializeApp(config);   
+
+    firebase.firestore().collection("GAWH").get().then(function(querySnapshot) {
     querySnapshot.forEach(function(doc) {
         document.getElementById("select_existing_fach").innerHTML += "<option value=\"" + doc.id + "\">" + doc.id + "</option>";
         });
     });
 }
-
-
-function addFreitext(){
-      
-      
-} 
 
 function weiterFach()
 { 
@@ -77,23 +72,24 @@ function weiterFach()
 /////////////////////////////multiple_choice.html///////////////////////////
 function mc_submit()
 {    
+    // Initialize Firebase
     var config = {
-    apiKey: "AIzaSyARl9jVIqTls5AH0dBzhSDtvlHVPAudLsg",
-    authDomain: "alpha-c1fa6.firebaseapp.com",
-    databaseURL: "https://alpha-c1fa6.firebaseio.com",
-    projectId: "alpha-c1fa6",
-    storageBucket: "alpha-c1fa6.appspot.com",
-    messagingSenderId: "658519541206"
-  };
-  firebase.initializeApp(config);   
+    apiKey: "AIzaSyB-8gScjX7i5qYZYI_VTPOTOPQKW_peztE",
+    authDomain: "gawh-f81a5.firebaseapp.com",
+    databaseURL: "https://gawh-f81a5.firebaseio.com",
+    projectId: "gawh-f81a5",
+    storageBucket: "gawh-f81a5.appspot.com",
+    messagingSenderId: "251170516039"
+    };
+    firebase.initializeApp(config);   
     
     var x = getQueryVariable("fach");
     var anz;
     
     var coll = firebase.firestore().collection("GAWH").doc(x).collection("Multiple Choice");
 
-    coll.get().then(function(doc) {
-        anz = doc.data();
+    coll.doc("Anzahl").get().then(function(doc) {
+        anz = doc.data()[0];
     });
                                             
     
@@ -191,7 +187,3 @@ function ref_ft()
     var fach = getQueryVariable("fach");
     window.location.href = "freitext.html?fach=" + fach;
 }
-
-/*
-    alert("Document successfully written!"); 
-*/
