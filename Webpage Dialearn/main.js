@@ -4,7 +4,7 @@
 function addFach()
 {
     var x = document.getElementsByName("text_addFach")[0].value;
-    var coll = firebase.firestore().collection('GAWH');
+    var coll = firebase.firestore().collection('Alpha');
     
     //Erstelle Dokument vom neuen Fach
     coll.doc(x).set({});
@@ -18,25 +18,30 @@ function addFach()
     });
 }
 
-function selectFach()
-{
+function selectFach(){
     // Initialize Firebase
     var config = {
-    apiKey: "AIzaSyB-8gScjX7i5qYZYI_VTPOTOPQKW_peztE",
-    authDomain: "gawh-f81a5.firebaseapp.com",
-    databaseURL: "https://gawh-f81a5.firebaseio.com",
-    projectId: "gawh-f81a5",
-    storageBucket: "gawh-f81a5.appspot.com",
-    messagingSenderId: "251170516039"
-    };
-    firebase.initializeApp(config);   
-
-    firebase.firestore().collection("GAWH").get().then(function(querySnapshot) {
+    apiKey: "AIzaSyARl9jVIqTls5AH0dBzhSDtvlHVPAudLsg",
+    authDomain: "alpha-c1fa6.firebaseapp.com",
+    databaseURL: "https://alpha-c1fa6.firebaseio.com",
+    projectId: "alpha-c1fa6",
+    storageBucket: "alpha-c1fa6.appspot.com",
+    messagingSenderId: "658519541206"
+  };
+ firebase.initializeApp(config);
+    
+    firebase.firestore().collection("Alpha").get().then(function(querySnapshot) {
     querySnapshot.forEach(function(doc) {
         document.getElementById("select_existing_fach").innerHTML += "<option value=\"" + doc.id + "\">" + doc.id + "</option>";
         });
     });
 }
+
+
+function addFreitext(){
+      
+      
+} 
 
 function weiterFach()
 { 
@@ -72,16 +77,15 @@ function weiterFach()
 /////////////////////////////multiple_choice.html///////////////////////////
 function mc_submit()
 {    
-    // Initialize Firebase
     var config = {
-    apiKey: "AIzaSyB-8gScjX7i5qYZYI_VTPOTOPQKW_peztE",
-    authDomain: "gawh-f81a5.firebaseapp.com",
-    databaseURL: "https://gawh-f81a5.firebaseio.com",
-    projectId: "gawh-f81a5",
-    storageBucket: "gawh-f81a5.appspot.com",
-    messagingSenderId: "251170516039"
-    };
-    firebase.initializeApp(config);   
+    apiKey: "AIzaSyARl9jVIqTls5AH0dBzhSDtvlHVPAudLsg",
+    authDomain: "alpha-c1fa6.firebaseapp.com",
+    databaseURL: "https://alpha-c1fa6.firebaseio.com",
+    projectId: "alpha-c1fa6",
+    storageBucket: "alpha-c1fa6.appspot.com",
+    messagingSenderId: "658519541206"
+  };
+  firebase.initializeApp(config);   
     
     var x = getQueryVariable("fach");
     var anz;
@@ -108,7 +112,40 @@ function mc_submit()
 ///////////////////////////freitext.html//////////////////////////////
 function ft_submit()
 {
+    // Initialize Firebase
     
+    var config = {
+    apiKey: "AIzaSyARl9jVIqTls5AH0dBzhSDtvlHVPAudLsg",
+    authDomain: "alpha-c1fa6.firebaseapp.com",
+    databaseURL: "https://alpha-c1fa6.firebaseio.com",
+    projectId: "alpha-c1fa6",
+    storageBucket: "alpha-c1fa6.appspot.com",
+    messagingSenderId: "658519541206"
+  };
+  firebase.initializeApp(config); 
+   
+    //Initialisierung der Eingaben für das Schreiben nach Firebase
+    var f = document.getElementsByName("freitext")[0].value;
+    var ka = document.getElementsByName("freitext")[1].value;
+    var kb = document.getElementsByName("freitext")[2].value;
+    var kc = document.getElementsByName("freitext")[3].value;
+    var kd = document.getElementsByName("freitext")[4].value;
+    var ke = document.getElementsByName("freitext")[5].value;
+    var kf = document.getElementsByName("freitext")[6].value;
+    
+   //Das schreiben der Eingaben in das Jeweilige Fach
+    var coll = firebase.firestore().collection('Alpha');
+    coll.doc("Test").collection("Freitext").doc('Mal').set({
+        Frage: f,
+        Key1: ka,
+        Key2: kb,
+        Key3: kc,
+        Key4: kd,
+        Key5: ke,
+        Key6: kd
+    }).then(function() {
+        alert("Document successfully written!");
+    });
 }
 
 
@@ -154,3 +191,7 @@ function ref_ft()
     var fach = getQueryVariable("fach");
     window.location.href = "freitext.html?fach=" + fach;
 }
+
+/*
+    alert("Document successfully written!"); 
+*/
