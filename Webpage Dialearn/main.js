@@ -84,54 +84,99 @@ function mc_submit()
     firebase.initializeApp(config);   
     
     var x = getQueryVariable("fach");
-    var anz;
-    
     var coll = firebase.firestore().collection("GAWH").doc(x).collection("Multiple Choice");
+    var anz;
 
-    coll.doc("Anzahl").get().then(function(doc) {
-        anz = doc.data()[0];
-    });
-                                            
+
+    anz = coll.doc("Anzahl").get().then(function(doc) {
+        anz = doc.data().Anzahl + 1;
+        var str = "F" + (anz);
+        //Frage
+        var f = document.getElementsByName("question_multiple_choice")[0].value;
+        //Antworten
+        var ka = document.getElementsByName("answer1_multiple_choice")[0].value;
+        var kb = document.getElementsByName("answer2_multiple_choice")[0].value;
+        var kc = document.getElementsByName("answer3_multiple_choice")[0].value;
+        var kd = document.getElementsByName("answer4_multiple_choice")[0].value;
+        //Checks
+        var ca = false;
+        var cb = false;
+        var cc = false;
+        var cd = false;
     
-    //var f = document.getElementsByName("question_multiple_choice")[0].value;
-    var str = "F" + (anz+1);
-    /*coll.doc(str).set(
+        if(document.getElementById("check1").checked)
         {
-            Frage: f
+            ca = true;
+        }
+        else if(document.getElementById("check2").checked)
+        {
+            cb = true;
+        }
+        else if(document.getElementById("check3").checked)
+        {
+            cc = true;
+        }
+        else if(document.getElementById("check4").checked)
+        {
+            cd = true;
+        }
+        else
+        {
+            
+        }
+        
+        coll.doc("Anzahl").set(
+        {
+            Anzahl: anz
         });
-    */
-    alert(str);
-}
+        
+        coll.doc(str).set(
+        {
+             Frage: f,
+             a: ka,
+             acheck: ca,
+             b: kb,
+             bcheck: cb,
+             c: kc,
+             ccheck: cc,
+             d: kd,
+             dcheck: cd
+        }).then(function() {
+            if(confirm("Die Frage wurde hinzugefügt!")){window.location.reload();}
+        });
+    });
+    
+    coll.doc(x).collection("Multiple Choice").doc('Anzahl').set({Anzahl: 0});
 
+}
 
 
 ///////////////////////////freitext.html//////////////////////////////
 function ft_submit()
 {
     // Initialize Firebase
-    
     var config = {
-    apiKey: "AIzaSyARl9jVIqTls5AH0dBzhSDtvlHVPAudLsg",
-    authDomain: "alpha-c1fa6.firebaseapp.com",
-    databaseURL: "https://alpha-c1fa6.firebaseio.com",
-    projectId: "alpha-c1fa6",
-    storageBucket: "alpha-c1fa6.appspot.com",
-    messagingSenderId: "658519541206"
-  };
-  firebase.initializeApp(config); 
+    apiKey: "AIzaSyB-8gScjX7i5qYZYI_VTPOTOPQKW_peztE",
+    authDomain: "gawh-f81a5.firebaseapp.com",
+    databaseURL: "https://gawh-f81a5.firebaseio.com",
+    projectId: "gawh-f81a5",
+    storageBucket: "gawh-f81a5.appspot.com",
+    messagingSenderId: "251170516039"
+    };
+    firebase.initializeApp(config);  
    
     //Initialisierung der Eingaben für das Schreiben nach Firebase
-    var f = document.getElementsByName("freitext")[0].value;
-    var ka = document.getElementsByName("freitext")[1].value;
-    var kb = document.getElementsByName("freitext")[2].value;
-    var kc = document.getElementsByName("freitext")[3].value;
-    var kd = document.getElementsByName("freitext")[4].value;
-    var ke = document.getElementsByName("freitext")[5].value;
-    var kf = document.getElementsByName("freitext")[6].value;
+    var f = document.getElementsByName("new_freitext_question")[0].value;
+    var ka = document.getElementsByName("key1_freitext")[0].value;
+    var kb = document.getElementsByName("key2_freitext")[0].value;
+    var kc = document.getElementsByName("key3_freitext")[0].value;
+    var kd = document.getElementsByName("key4_freitext")[0].value;
+    var ke = document.getElementsByName("key5_freitext")[0].value;
+    var kf = document.getElementsByName("key6_freitext")[0].value;
     
    //Das schreiben der Eingaben in das Jeweilige Fach
-    var coll = firebase.firestore().collection('Alpha');
-    coll.doc("Test").collection("Freitext").doc('Mal').set({
+    var coll = firebase.firestore().collection("GAWH");
+    coll.doc("aaa").collection("Freitext").doc("F5").set({
         Frage: f,
         Key1: ka,
         Key2: kb,
@@ -140,7 +185,7 @@ function ft_submit()
         Key5: ke,
         Key6: kd
     }).then(function() {
-        alert("Document successfully written!");
+        if(confirm("Die Frage wurde hinzugefügt!")){window.location.reload();}
     });
 }
 
