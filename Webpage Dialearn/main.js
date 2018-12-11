@@ -57,7 +57,7 @@ function weiterFach()
 
 //////////////////////////deleteQuestion.html/////////////////////////////
 function selectFrage() {
-     
+    deleteSelect();
     
     var fragetyp;
     var y = getQueryVariable("fach");
@@ -73,7 +73,7 @@ function selectFrage() {
         if(doc.id != "Anzahl")
             {
                 //docid = doc.id;
-                document.getElementById("select_deleting_question").innerHTML = "<option disabled selected value=\"0\">Bitte wählen Sie die Frage aus..</option>" + "<option value=\"" + doc.data().Frage + "\">" + doc.data().Frage + "</option>"; 
+                document.getElementById("select_deleting_question").innerHTML += "<option value=\"" + doc.data().Frage + "\">" + doc.data().Frage + "</option>"; 
             }
         });
     });
@@ -81,6 +81,9 @@ function selectFrage() {
     
 }
 
+function deleteSelect() {
+    document.getElementById("select_deleting_question").innerHTML = "<option disabled selected value=\"0\">Bitte wählen Sie die Frage aus..</option>"; 
+}
 
 function deleteQuest(){
     if(document.getElementById("select_deleting_question").value == "0")
@@ -100,21 +103,10 @@ function deleteQuest(){
 
 
 
+
+
+
 /////////////////////////////multiple_choice.html///////////////////////////
-function reload_html()
-{
-    var frage = sessionStorage.getItem("frage");
-    var a1 = sessionStorage.getItem("a1");
-    var a2 = sessionStorage.getItem("a2");
-    var a3 = sessionStorage.getItem("a3");
-    var a4 = sessionStorage.getItem("a4");
-    
-    document.getElementsByName("question_multiple_choice")[0].value = frage;
-    document.getElementsByName("answer1_multiple_choice")[0].value = a1;
-    document.getElementsByName("answer2_multiple_choice")[0].value = a2;
-    document.getElementsByName("answer3_multiple_choice")[0].value = a3;
-    document.getElementsByName("answer4_multiple_choice")[0].value = a4;
-}
 
 function mc_submit()
 {    
@@ -160,12 +152,7 @@ function mc_submit()
         else
         {
             alert("Keine Checkbox ausgewählt.");
-            sessionStorage.setItem("frage", document.getElementsByName("question_multiple_choice")[0].value);
-            sessionStorage.setItem("a1", document.getElementsByName("answer1_multiple_choice")[0].value);
-            sessionStorage.setItem("a2", document.getElementsByName("answer2_multiple_choice")[0].value);
-            sessionStorage.setItem("a3", document.getElementsByName("answer3_multiple_choice")[0].value);
-            sessionStorage.setItem("a4", document.getElementsByName("answer4_multiple_choice")[0].value);
-            window.location.reload();
+            return;
         }
         
         coll.doc("Anzahl").set(
