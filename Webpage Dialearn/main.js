@@ -20,17 +20,17 @@ function addFach()
 
 function selectFach()
 {
-    // Initialize Firebase
+     // Initialize Firebase
     var config = {
-    apiKey: "AIzaSyARl9jVIqTls5AH0dBzhSDtvlHVPAudLsg",
-    authDomain: "alpha-c1fa6.firebaseapp.com",
-    databaseURL: "https://alpha-c1fa6.firebaseio.com",
-    projectId: "alpha-c1fa6",
-    storageBucket: "alpha-c1fa6.appspot.com",
-    messagingSenderId: "658519541206"
-  };
-  firebase.initializeApp(config);  
-
+    apiKey: "AIzaSyB-8gScjX7i5qYZYI_VTPOTOPQKW_peztE",
+    authDomain: "gawh-f81a5.firebaseapp.com",
+    databaseURL: "https://gawh-f81a5.firebaseio.com",
+    projectId: "gawh-f81a5",
+    storageBucket: "gawh-f81a5.appspot.com",
+    messagingSenderId: "251170516039"
+    };
+    firebase.initializeApp(config);   
+    
     firebase.firestore().collection("DiaLearn").get().then(function(querySnapshot) {
     querySnapshot.forEach(function(doc) {
         document.getElementById("select_existing_fach").innerHTML += "<option value=\"" + doc.id + "\">" + doc.id + "</option>";
@@ -38,65 +38,7 @@ function selectFach()
     });
 }
 
-var docid;
-
-function selectFrage() {
-    // Initialize Firebase
-    var config = {
-    apiKey: "AIzaSyARl9jVIqTls5AH0dBzhSDtvlHVPAudLsg",
-    authDomain: "alpha-c1fa6.firebaseapp.com",
-    databaseURL: "https://alpha-c1fa6.firebaseio.com",
-    projectId: "alpha-c1fa6",
-    storageBucket: "alpha-c1fa6.appspot.com",
-    messagingSenderId: "658519541206"
-  };
-  firebase.initializeApp(config); 
-    var fragetyp;
-var x = getQueryVariable("fach");
-if(document.getElementsByName("check_mc").value == true){
-    fragetyp = "Multiple Choice"
-} else if (document.getElementsByName("check_ft").value == true) {
-    fragetyp = "Freitext"
-}
-     firebase.firestore().collection("DiaLearn").doc(x).collection(fragetyp).get().then(function(querySnapshot) {
-    querySnapshot.forEach(function(doc) {
-        if(doc.id != 'Anzahl'){
-            docid = doc.id;
-        document.getElementById("select_deleting_question").innerHTML += "<option value=\"" + doc.data().Frage + "\">" + doc.data().Frage + "</option>"; 
-        }
-        });
-    });
-    
-    
-}
-
-
-function deleteQuest(){
-      // Initialize Firebase
-    var config = {
-    apiKey: "AIzaSyARl9jVIqTls5AH0dBzhSDtvlHVPAudLsg",
-    authDomain: "alpha-c1fa6.firebaseapp.com",
-    databaseURL: "https://alpha-c1fa6.firebaseio.com",
-    projectId: "alpha-c1fa6",
-    storageBucket: "alpha-c1fa6.appspot.com",
-    messagingSenderId: "658519541206"
-  };
-  firebase.initializeApp(config);
-    if(document.getElementById("select_deleting_question").value == "0")
-    {
-        if(confirm('Bitte wählen Sie eine Frage aus!')){return;}
-    }
-    else
-    {
-        var x = getQueryVariable("fach");
-       firebase.firestore().collection("DiaLearn").doc(x).collection("Freitext").doc(docid).delete().then(function() {
-    alert("Document successfully deleted!");
-}).catch(function(error) {
-    alert("Error removing document: ", error);
-});
-    }
-}
-
+//Parameterübergabe
 function weiterFach()
 { 
     if(document.getElementById("select_existing_fach").value == "0")
@@ -113,36 +55,72 @@ function weiterFach()
 
 
 
-///////////////////////////options_page.html////////////////////////////////////////
-
-
-
-
-//////////////////////////newQuestion.html/////////////////////////////////
-
-
-
-
 //////////////////////////deleteQuestion.html/////////////////////////////
+function selectFrage() {
+     
+    
+    var fragetyp;
+    var y = getQueryVariable("fach");
+    var x = unescape(y);
+    
+    if(document.getElementById("check1").checked){
+        fragetyp = "Multiple Choice";
+    } else if (document.getElementById("check2").checked) {
+        fragetyp = "Freitext";
+    }
+    firebase.firestore().collection("DiaLearn").doc(x).collection(fragetyp).get().then(function(querySnapshot) {
+    querySnapshot.forEach(function(doc) {
+        if(doc.id != "Anzahl")
+            {
+                //docid = doc.id;
+                document.getElementById("select_deleting_question").innerHTML = "<option disabled selected value=\"0\">Bitte wählen Sie die Frage aus..</option>" + "<option value=\"" + doc.data().Frage + "\">" + doc.data().Frage + "</option>"; 
+            }
+        });
+    });
+    
+    
+}
 
+
+function deleteQuest(){
+    if(document.getElementById("select_deleting_question").value == "0")
+    {
+        if(confirm('Bitte wählen Sie eine Frage aus!')){return;}
+    }
+    else
+    {
+        var x = getQueryVariable("fach");
+       firebase.firestore().collection("DiaLearn").doc(x).collection("Freitext").doc(docid).delete().then(function() {
+    alert("Document successfully deleted!");
+}).catch(function(error) {
+    alert("Error removing document: ", error);
+});
+    }
+}
 
 
 
 /////////////////////////////multiple_choice.html///////////////////////////
+function reload_html()
+{
+    var frage = sessionStorage.getItem("frage");
+    var a1 = sessionStorage.getItem("a1");
+    var a2 = sessionStorage.getItem("a2");
+    var a3 = sessionStorage.getItem("a3");
+    var a4 = sessionStorage.getItem("a4");
+    
+    document.getElementsByName("question_multiple_choice")[0].value = frage;
+    document.getElementsByName("answer1_multiple_choice")[0].value = a1;
+    document.getElementsByName("answer2_multiple_choice")[0].value = a2;
+    document.getElementsByName("answer3_multiple_choice")[0].value = a3;
+    document.getElementsByName("answer4_multiple_choice")[0].value = a4;
+}
+
 function mc_submit()
 {    
-    // Initialize Firebase
-    var config = {
-    apiKey: "AIzaSyARl9jVIqTls5AH0dBzhSDtvlHVPAudLsg",
-    authDomain: "alpha-c1fa6.firebaseapp.com",
-    databaseURL: "https://alpha-c1fa6.firebaseio.com",
-    projectId: "alpha-c1fa6",
-    storageBucket: "alpha-c1fa6.appspot.com",
-    messagingSenderId: "658519541206"
-  };
-  firebase.initializeApp(config);    
+    var y = getQueryVariable("fach"); 
+    var x = unescape(y);
     
-    var x = getQueryVariable("fach");
     var coll = firebase.firestore().collection("DiaLearn").doc(x).collection("Multiple Choice");
     var anz;
 
@@ -153,10 +131,10 @@ function mc_submit()
         //Frage
         var f = document.getElementsByName("question_multiple_choice")[0].value;
         //Antworten
-        var ka = document.getElementsByName("answer1_multiple_choice")[0].value;
-        var kb = document.getElementsByName("answer2_multiple_choice")[0].value;
-        var kc = document.getElementsByName("answer3_multiple_choice")[0].value;
-        var kd = document.getElementsByName("answer4_multiple_choice")[0].value;
+        var a = document.getElementsByName("answer1_multiple_choice")[0].value;
+        var b = document.getElementsByName("answer2_multiple_choice")[0].value;
+        var c = document.getElementsByName("answer3_multiple_choice")[0].value;
+        var d = document.getElementsByName("answer4_multiple_choice")[0].value;
         //Checks
         var ca = false;
         var cb = false;
@@ -181,7 +159,13 @@ function mc_submit()
         }
         else
         {
-            
+            alert("Keine Checkbox ausgewählt.");
+            sessionStorage.setItem("frage", document.getElementsByName("question_multiple_choice")[0].value);
+            sessionStorage.setItem("a1", document.getElementsByName("answer1_multiple_choice")[0].value);
+            sessionStorage.setItem("a2", document.getElementsByName("answer2_multiple_choice")[0].value);
+            sessionStorage.setItem("a3", document.getElementsByName("answer3_multiple_choice")[0].value);
+            sessionStorage.setItem("a4", document.getElementsByName("answer4_multiple_choice")[0].value);
+            window.location.reload();
         }
         
         coll.doc("Anzahl").set(
@@ -192,51 +176,35 @@ function mc_submit()
         coll.doc(str).set(
         {
              Frage: f,
-             a: ka,
+             a: a,
              acheck: ca,
-             b: kb,
+             b: b,
              bcheck: cb,
-             c: kc,
+             c: c,
              ccheck: cc,
-             d: kd,
+             d: d,
              dcheck: cd
         }).then(function() {
             if(confirm("Die Frage wurde hinzugefügt!")){window.location.reload();}
         });
     });
-    
-    coll.doc(x).collection("Multiple Choice").doc('Anzahl').set({Anzahl: 0});
-
 }
-
-
-//////////
-
 
 
 ///////////////////////////freitext.html//////////////////////////////
 function ft_submit()
-{    
-    // Initialize Firebase
-    var config = {
-    apiKey: "AIzaSyARl9jVIqTls5AH0dBzhSDtvlHVPAudLsg",
-    authDomain: "alpha-c1fa6.firebaseapp.com",
-    databaseURL: "https://alpha-c1fa6.firebaseio.com",
-    projectId: "alpha-c1fa6",
-    storageBucket: "alpha-c1fa6.appspot.com",
-    messagingSenderId: "658519541206"
-  };
-  firebase.initializeApp(config);    
+{
+    var y = getQueryVariable("fach");
+    var x = unescape(y);
     
-    var x = getQueryVariable("fach");
     var coll = firebase.firestore().collection("DiaLearn").doc(x).collection("Freitext");
     var anz;
 
 
     anz = coll.doc("Anzahl").get().then(function(doc) {
-        anz = doc.data().Anzahl + 1;
-        var str = "F" + (anz);
-        var f = document.getElementsByName("freitext")[0].value;
+    anz = doc.data().Anzahl + 1;
+    var str = "F" + (anz);
+    var f = document.getElementsByName("freitext")[0].value;
     var ka = document.getElementsByName("freitext")[1].value;
     var kb = document.getElementsByName("freitext")[2].value;
     var kc = document.getElementsByName("freitext")[3].value;
@@ -260,13 +228,14 @@ function ft_submit()
         Key5: ke,
         Key6: kd
     }).then(function() {
-        alert("Document successfully written!");
+        if(confirm("Die Frage wurde hinzugefügt!")){window.location.reload();}
     });
     });
-    
-    //coll.doc(x).collection("Multiple Choice").doc('Anzahl').set({Anzahl: 0});
-
 }
+
+
+
+
 
 ///////////////////////////global//////////////////////////////////
 function getQueryVariable(variable)
@@ -279,12 +248,6 @@ function getQueryVariable(variable)
        }
        return(false);
 }
-
-/////////////////////////Retrieve Data for List of deleting Questions////////////////
-function retr_data(){
-    
-}
-
 
 function ref_options()
 {

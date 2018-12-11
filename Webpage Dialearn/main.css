@@ -5,7 +5,7 @@ html {
 }
 
 body {
-    background: #BEBEBE;
+    background: #CED8F6;
     box-shadow: 0 0 2px rgba(0, 0, 0, 0.06);
     color: black;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -35,6 +35,10 @@ h1, h2, h3, h4, h5, h6 {
 
 .left { 
     text-align: left; 
+}
+
+.center { 
+    text-align: center; 
 }
 
 .thin-border {
