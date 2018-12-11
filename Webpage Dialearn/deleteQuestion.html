@@ -22,14 +22,27 @@
         <div id= "main">
             <h1>DiaService</h1>
             <h3>Frage löschen</h3>
-        
+            Multiple Choice:
+            <input class="form-check-input" type="radio" name="check_mc" value="" id="check1">
+            Freitext:
+            <input class="form-check-input" type="radio" name="check_ft" value="" id="check2">
+
             <form action="">
+                <!--
                 <select style="width:300px" name="select_delete_questionc" value="">
                 <option value="Was ist Usability">Was ist Usability?</option>
-                </select>
+                </select> -->
+                <select style="width:300px; height:26px; font-size-adjust: auto" id="select_deleting_question">
+                <option disabled selected value="0">Bitte wählen Sie die Frage aus..</option>
+                <script>
+                   window.onload = function(){
+                        selectFrage();  
+                   } 
+                </script>
+            </select>
                 <br><br>
 
-                <input type="button" name ="btn_delete_question" style="width:200px; height:50px" value="Frage löschen" href="">
+                <input type="button" name ="btn_delete_question" style="width:200px; height:50px" onclick="deleteQuest()" value="Frage löschen" href="">
                 <br><br>
 
                 <input type="button" name="btn_delete_back" style="width:100px; height:30px" onclick="ref_options()" value="Zurück" >
