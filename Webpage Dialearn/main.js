@@ -72,7 +72,7 @@ function selectFrage() {
     querySnapshot.forEach(function(doc) {
         if(doc.id != "Anzahl")
             {
-                //docid = doc.id;
+                localStorage.setItem('docid', doc.id);
                 document.getElementById("select_deleting_question").innerHTML += "<option value=\"" + doc.data().Frage + "\">" + doc.data().Frage + "</option>"; 
             }
         });
@@ -91,13 +91,33 @@ function deleteQuest(){
         if(confirm('Bitte wählen Sie eine Frage aus!')){return;}
     }
     else
-    {
-        var x = getQueryVariable("fach");
-       firebase.firestore().collection("DiaLearn").doc(x).collection("Freitext").doc(docid).delete().then(function() {
-    alert("Document successfully deleted!");
-}).catch(function(error) {
-    alert("Error removing document: ", error);
-});
+    {   
+        var fragetyp;
+        var y = getQueryVariable("fach");
+        var x = unescape(y);
+        var anz;
+        
+        if(document.getElementById("check1").checked){
+            fragetyp = "Multiple Choice";
+        } else if (document.getElementById("check2").checked) {
+            fragetyp = "Freitext";
+        }
+        
+        const coll = firebase.firestore().collection("DiaLearn").doc(x).collection(fragetyp);
+        
+        coll.doc(localStorage.getItem('docid')).delete().then(function() {
+        if(confirm('Die Frage wurde gelöscht!')){window.location.reload();}
+        }).catch(function(error) {
+        alert("Error removing document: ", error);      
+        });
+        
+        coll.doc("Anzahl").get().then(function(doc) {
+            anz = doc.data().Anzahl - 1; 
+            coll.doc("Anzahl").set(
+            {
+                Anzahl: anz
+            });
+        });
     }
 }
 
