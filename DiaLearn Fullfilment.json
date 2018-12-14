@@ -11,9 +11,6 @@ const db = admin.firestore();
 const {
   dialogflow
 } = require('actions-on-google');
-//const app = express();
-//app.use(bodyParser.json());
-//app.use(bodyParser.urlencoded({extended: true}));
 
 const app = dialogflow({
   debug: true,
@@ -29,20 +26,29 @@ app.middleware((conv, framework) => {
   });
 });
 
+
+app.intent('Fach', (conv) => {
+    var str = conv.body.queryResult.queryText;
+    conv.data.fach = str;
+});
+
 ///////////////////////////////////Freitext/////////////////////////////////////////////////
 //Frage stellen
 app.intent('Freitext', (conv) => {
     var count;
-    conv.data.Fach = `${conv.rText}`.toLowerCase();
-    const collection1 = db.collection('DiaLearn').doc(conv.data.Fach).collection('Freitext').doc('Anzahl');
+    //Hole Anzahl aus DB
+    const collection1 = db.collection('DiaLearn').doc(conv.data.fach).collection('Freitext').doc('Anzahl');
     collection1.get().then(snap => {
+        //Speicher in "globale Variable"
         conv.data.count = snap.data().Anzahl;
     });
     count = conv.data.count;
     
+    //mache Random Choice und speicher in "globale Variable"
     var rand = Math.floor((Math.random() * count) + 1);
     conv.data.random = rand;
-    const collection = db.collection('Freitext').doc('F' + conv.data.random);
+    
+    const collection = db.collection('DiaLearn').doc(conv.data.fach).collection('Freitext').doc('F' + conv.data.random);
       
      return collection.get()
       .then(doc => {
@@ -66,7 +72,7 @@ app.catch((conv, error) => {
 
 //Überprüfung der Antwort
 app.intent('FreitextCheck', (conv) => {
-    const collection = db.collection('Freitext').doc('F' + conv.data.random);
+    const collection = db.collection('DiaLearn').doc(conv.data.fach).collection('Freitext').doc('F' + conv.data.random);
     var ant = `${conv.rText}`.toLowerCase();
     var check = false;
 
@@ -105,7 +111,7 @@ app.catch((conv, error) => {
 app.intent('MultipleChoice', conv => {
     // Get the database collection 'dialogflow' and document 'agent'
     var count;
-    const collection1 = db.collection('Multiple Choice').doc('Anzahl');
+    const collection1 = db.collection('DiaLearn').doc(conv.data.fach).collection('Multiple Choice').doc('Anzahl');
     collection1.get().then(snap => {
             conv.data.count = snap.data().Anzahl;
     });
@@ -113,7 +119,7 @@ app.intent('MultipleChoice', conv => {
     
     var rand = Math.floor((Math.random() * count) + 1);
     conv.data.random = rand;
-    const collection = db.collection('Multiple Choice').doc('F' + conv.data.random);
+    const collection = db.collection('DiaLearn').doc(conv.data.fach).collection('Multiple Choice').doc('F' + conv.data.random);
       
     return collection.get().then(doc => {
         if (!doc.exists) {
@@ -136,7 +142,7 @@ app.catch((conv, error) => {
 //Überprüfung der Antwort
 app.intent('MultipleChoiceCheck', conv => {
    // Get the database collection 'dialogflow' and document 'agent'
-    const collection = db.collection('Multiple Choice').doc('F' + conv.data.random);
+    const collection = db.collection('DiaLearn').doc(conv.data.fach).collection('Multiple Choice').doc('F' + conv.data.random);
     var ant = `${conv.rText}`;
     var check = 'e';
 
